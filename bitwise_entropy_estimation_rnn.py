@@ -160,8 +160,6 @@ def main():
         for bx, by in loader:
             optimizer.zero_grad()
             logits = model(bx)  # shape (batch_size, seq_length, 2)
-            # PyTorch’s CrossEntropyLoss expects (N, C) + label shape (N),
-            # so we flatten:
             batch_size_i, seq_len, _ = logits.shape
             logits_flat = logits.reshape(batch_size_i*seq_len, 2)  # (N*L,2)
             by_flat = by.reshape(batch_size_i*seq_len)         # (N*L)
